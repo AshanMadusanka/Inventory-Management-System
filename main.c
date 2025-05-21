@@ -14,13 +14,25 @@ Item_t items[50];
 uint32_t item_count;
 
 void displayMessages();
-void addItem();
+void addItem(Item_t *items,uint32_t *item_count);
 void deleteItem();
 void updateItemQuantity();
 void displayTotalInventoryValue();
 
 
 int main(void) {
+
+    uint32_t user_choise = 0;
+    printf("Enter your choise: ");
+    scanf("%d",&user_choise);
+
+    switch (user_choise) {
+
+        case 1:
+            addItem(items,&item_count);
+        break;
+    }
+
 
 }
 
@@ -30,4 +42,31 @@ void displayMessages() {
     printf("Delete item press   (2)\n");
     printf("Update item quantity    (3)\n");
     printf("Display total inventory value press (4)\n");
+}
+
+void addItem(Item_t *items,uint32_t *item_count) {
+
+    uint32_t item_code = 0;
+    printf("Enter new item code: ");
+    scanf("%d",&item_code);
+
+    for (uint32_t i = 0; i < *item_count; i++) {
+
+        if(items[i].item_code==item_code) {
+            printf("You can't use this code\n");
+            return;
+        }
+    }
+
+    items[*item_count].item_code = item_code;
+    getchar();
+    printf("Enter item name: ");
+    scanf("%50[^\n]",&items[*item_count].item_name);
+    printf("Enter quantity: ");
+    scanf("%d",&items[*item_count].quantity);
+    printf("Enter item price Rs: ");
+    scanf("%f",items[*item_count].price);
+    (*item_count)++;
+    printf("You have successfully added new item\n");
+    printf("\n");
 }
